@@ -2,902 +2,569 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>只有河南 · 深度观演攻略</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0C0C0E;
-    --bg-2: #111114;
-    --bg-3: #18181c;
-    --text-primary: #f0ece3;
-    --text-secondary: #a09880;
-    --text-muted: #5a5448;
-    --wheat: #c9963a;
-    --wheat-light: #e8b96a;
-    --wheat-dim: rgba(201,150,58,0.15);
-    --wheat-glow: rgba(201,150,58,0.08);
-    --crimson: #9b3a3a;
-    --crimson-light: #c55a5a;
-    --glass-bg: rgba(255,255,255,0.04);
-    --glass-border: rgba(255,255,255,0.08);
-    --glass-border-strong: rgba(255,255,255,0.14);
-    --shadow: 0 8px 32px rgba(0,0,0,0.5);
-    --shadow-lg: 0 24px 64px rgba(0,0,0,0.7);
-  }
+:root {
+  --bg: #0c0b09;
+  --bg2: #13120f;
+  --bg3: #1a1915;
+  --wheat: #c9963a;
+  --wheat-l: #e4b86a;
+  --wheat-dim: rgba(201,150,58,0.12);
+  --wheat-glow: rgba(201,150,58,0.06);
+  --rust: #9b4030;
+  --rust-l: #c85a45;
+  --fg: #ede8dc;
+  --fg2: #a09070;
+  --fg3: #5a5040;
+  --glass: rgba(255,255,255,0.035);
+  --border: rgba(255,255,255,0.07);
+  --border-w: rgba(255,255,255,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Noto Sans SC',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  html { scroll-behavior: smooth; }
+/* ── NAVBAR ─────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 20px;
+  height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,backdrop-filter .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(12,11,9,.88);
+  backdrop-filter:blur(20px);
+  border-color:var(--border);
+}
+.nav-brand{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--wheat) 0%,var(--wheat-l) 50%,var(--wheat) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+  white-space:nowrap;
+}
+@keyframes shimmer{0%{background-position:0 center}100%{background-position:200% center}}
+/* hamburger */
+.nav-hamburger{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--glass);border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;
+}
+.nav-hamburger span{
+  display:block;width:16px;height:1.5px;
+  background:var(--fg2);border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+/* drawer */
+.nav-drawer{
+  position:fixed;top:52px;left:0;right:0;z-index:199;
+  background:rgba(12,11,9,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:16px 20px 20px;
+  transform:translateY(-8px);opacity:0;pointer-events:none;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),opacity .3s;
+}
+.nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+.drawer-links{display:flex;flex-direction:column;gap:2px;}
+.drawer-links a{
+  display:block;padding:12px 0;
+  font-size:15px;color:var(--fg2);text-decoration:none;
+  border-bottom:1px solid var(--border);
+  transition:color .2s;
+}
+.drawer-links a:last-child{border-bottom:none;}
+.drawer-links a:active{color:var(--wheat-l);}
 
-  body {
-    background: var(--bg);
-    color: var(--text-primary);
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* ── HERO ────────────────────────────────── */
+.hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 24px 56px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 95%,rgba(201,150,58,.07) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 85% 5%,rgba(155,64,48,.05) 0%,transparent 60%),
+    linear-gradient(180deg,#0c0b09 0%,#100f0c 100%);
+}
+.hero-ghost{
+  position:absolute;top:-30px;right:-20px;
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(180px,45vw,320px);
+  font-weight:700;color:var(--fg);opacity:.018;
+  line-height:1;pointer-events:none;user-select:none;
+}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.28em;color:var(--wheat);text-transform:uppercase;
+  margin-bottom:18px;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .8s .1s,transform .8s .1s;
+}
+.hero-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(38px,9.5vw,68px);
+  font-weight:700;line-height:1.18;letter-spacing:-.02em;
+  margin-bottom:20px;
+  opacity:0;transform:translateY(28px);
+  transition:opacity .9s .22s,transform .9s .22s;
+}
+.hero-title em{color:var(--wheat-l);font-style:normal;}
+.hero-sub{
+  font-size:13.5px;font-weight:300;color:var(--fg2);
+  max-width:300px;line-height:1.85;margin-bottom:28px;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .9s .38s,transform .9s .38s;
+}
+.hero-chips{
+  display:flex;gap:10px;flex-wrap:wrap;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .8s .52s,transform .8s .52s;
+}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:9999px;
+  background:var(--glass);border:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--fg2);letter-spacing:.05em;
+}
+.chip .dot{
+  width:5px;height:5px;border-radius:50%;background:var(--wheat);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.hero-scroll{
+  position:absolute;bottom:24px;right:20px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.35;
+}
+.hero-scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(180deg,var(--wheat),transparent);
+  animation:scrollline 2.2s ease-in-out infinite;
+}
+@keyframes scrollline{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  51%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+.loaded .hero-eyebrow,.loaded .hero-title,.loaded .hero-sub,.loaded .hero-chips{
+  opacity:1;transform:translateY(0);
+}
 
-  /* ——— NAVBAR ——— */
-  .navbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
-                backdrop-filter 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
-                border-bottom 0.4s;
-  }
-  .navbar.scrolled {
-    background: rgba(12,12,14,0.82);
-    backdrop-filter: blur(20px) saturate(1.5);
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .navbar-brand {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, var(--wheat) 0%, var(--wheat-light) 50%, var(--wheat) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 4s linear infinite;
-  }
-  @keyframes shimmer {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
-  }
-  .navbar-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
-  .navbar-links a {
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .navbar-links a:hover { color: var(--wheat-light); }
+/* ── REVEAL ──────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .65s cubic-bezier(.25,.46,.45,.94),
+              transform .65s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.in{opacity:1;transform:translateY(0);}
 
-  /* ——— HERO ——— */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 24px 64px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 15% 90%, rgba(201,150,58,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 90% 10%, rgba(155,58,58,0.04) 0%, transparent 60%),
-      linear-gradient(180deg, #0C0C0E 0%, #0e0d0a 100%);
-  }
-  .hero-ghost {
-    position: absolute;
-    top: -20px;
-    right: -40px;
-    font-family: 'Noto Serif SC', serif;
-    font-size: clamp(160px, 30vw, 280px);
-    font-weight: 700;
-    color: var(--text-primary);
-    opacity: 0.025;
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-    letter-spacing: -0.05em;
-  }
-  .hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--wheat);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s 0.1s, transform 0.8s 0.1s;
-  }
-  .hero-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: clamp(42px, 10vw, 72px);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.9s 0.2s, transform 0.9s 0.2s;
-  }
-  .hero-title span {
-    color: var(--wheat-light);
-  }
-  .hero-subtitle {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--text-secondary);
-    max-width: 340px;
-    line-height: 1.8;
-    margin-bottom: 36px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.9s 0.35s, transform 0.9s 0.35s;
-  }
-  .hero-meta {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.9s 0.5s, transform 0.9s 0.5s;
-  }
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 9999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-secondary);
-    letter-spacing: 0.05em;
-  }
-  .hero-tag .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--wheat);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-  .hero-scroll {
-    position: absolute;
-    bottom: 32px;
-    right: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0.4;
-  }
-  .hero-scroll span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-  }
-  .hero-scroll-line {
-    width: 1px;
-    height: 48px;
-    background: linear-gradient(180deg, var(--wheat), transparent);
-    animation: scrollline 2s ease-in-out infinite;
-  }
-  @keyframes scrollline {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-  .loaded .hero-eyebrow,
-  .loaded .hero-title,
-  .loaded .hero-subtitle,
-  .loaded .hero-meta {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── SECTION BASE ────────────────────────── */
+.section{padding:72px 24px;position:relative;}
+.sec-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.28em;color:var(--wheat);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.sec-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(24px,5.5vw,32px);font-weight:600;line-height:1.3;
+  margin-bottom:28px;
+}
 
-  /* ——— FIRST MOVE (进门第一件事) ——— */
-  .section { padding: 96px 24px; position: relative; }
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--wheat);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .section-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: clamp(26px, 6vw, 36px);
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 32px;
-  }
+/* ── FULL-BLEED QUOTE ────────────────────── */
+.quote-band{
+  padding:44px 28px;
+  background:linear-gradient(135deg,rgba(201,150,58,.07),rgba(155,64,48,.04));
+  border-top:1px solid rgba(201,150,58,.12);
+  border-bottom:1px solid rgba(201,150,58,.12);
+}
+.quote-text{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(15px,4vw,18px);font-weight:300;
+  color:var(--fg2);line-height:1.9;text-align:center;
+}
+.quote-text strong{color:var(--wheat-l);font-weight:600;}
 
-  /* 进门卡片 */
-  .entry-card {
-    background: linear-gradient(135deg, rgba(201,150,58,0.1) 0%, rgba(201,150,58,0.03) 100%);
-    border: 1px solid rgba(201,150,58,0.25);
-    border-radius: 24px;
-    padding: 28px 24px;
-    margin-bottom: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-  .entry-card::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 120px; height: 120px;
-    background: radial-gradient(circle, rgba(201,150,58,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .entry-number {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 36px;
-    font-weight: 500;
-    color: rgba(201,150,58,0.25);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .entry-card h3 {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--wheat-light);
-    margin-bottom: 10px;
-  }
-  .entry-card p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
+/* ── ENTRY CARDS (进门) ──────────────────── */
+.entry-cards{display:flex;flex-direction:column;gap:14px;}
+.entry-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:20px;padding:22px;
+  position:relative;overflow:hidden;
+  transition:border-color .25s,background .25s;
+}
+.entry-card:active{background:rgba(255,255,255,.055);border-color:var(--border-w);}
+.entry-card::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,150,58,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.entry-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:32px;font-weight:500;
+  color:rgba(201,150,58,.2);line-height:1;margin-bottom:8px;
+}
+.entry-card h3{
+  font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;
+  color:var(--wheat-l);margin-bottom:8px;
+}
+.entry-card p{font-size:13px;color:var(--fg2);line-height:1.85;}
+.entry-card strong{color:var(--fg);font-weight:500;}
 
-  /* ——— DIVIDER ——— */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--glass-border-strong), transparent);
-    margin: 0 24px;
-  }
+/* ── DIVIDER ─────────────────────────────── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-w),transparent);margin:0 24px;}
 
-  /* ——— 主剧场 ——— */
-  .drama-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    backdrop-filter: blur(12px);
-    position: relative;
-  }
-  .drama-header {
-    padding: 28px 24px 20px;
-    border-bottom: 1px solid var(--glass-border);
-    position: relative;
-  }
-  .drama-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 9999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    margin-bottom: 14px;
-  }
-  .badge-must {
-    background: rgba(201,150,58,0.15);
-    border: 1px solid rgba(201,150,58,0.3);
-    color: var(--wheat-light);
-  }
-  .badge-warn {
-    background: rgba(155,58,58,0.15);
-    border: 1px solid rgba(155,58,58,0.3);
-    color: var(--crimson-light);
-  }
-  .badge-info {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--glass-border);
-    color: var(--text-secondary);
-  }
-  .drama-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .drama-subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-  }
-  .drama-ghost-num {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Outfit', sans-serif;
-    font-size: 80px;
-    font-weight: 900;
-    color: var(--text-primary);
-    opacity: 0.03;
-    line-height: 1;
-    pointer-events: none;
-  }
-  .drama-body {
-    padding: 24px;
-  }
-  .drama-story {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.9;
-    margin-bottom: 20px;
-  }
-  .drama-highlight {
-    background: linear-gradient(135deg, rgba(201,150,58,0.06) 0%, transparent 100%);
-    border-left: 2px solid var(--wheat);
-    border-radius: 0 12px 12px 0;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-  .drama-highlight strong {
-    color: var(--wheat-light);
-    font-style: normal;
-  }
-  .drama-tips {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .tip-row {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-  .tip-icon {
-    flex-shrink: 0;
-    margin-top: 2px;
-    font-size: 14px;
-  }
+/* ── DRAMA CARDS (主剧) ──────────────────── */
+.drama-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:22px;overflow:hidden;margin-bottom:18px;
+  backdrop-filter:blur(8px);
+}
+.drama-head{
+  padding:24px 22px 18px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.drama-ghost-n{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-family:'Outfit',sans-serif;font-size:72px;font-weight:900;
+  color:var(--fg);opacity:.025;line-height:1;pointer-events:none;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:9999px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;
+  margin-bottom:12px;
+}
+.badge-warn{background:rgba(155,64,48,.15);border:1px solid rgba(155,64,48,.3);color:var(--rust-l);}
+.badge-gold{background:rgba(201,150,58,.14);border:1px solid rgba(201,150,58,.28);color:var(--wheat-l);}
+.badge-muted{background:var(--glass);border:1px solid var(--border);color:var(--fg3);}
+.drama-title{
+  font-family:'Noto Serif SC',serif;font-size:21px;font-weight:600;
+  margin-bottom:4px;
+}
+.drama-meta{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--fg3);letter-spacing:.08em;
+}
+.drama-body{padding:22px;}
 
-  /* 情绪强度条 */
-  .emotion-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .emotion-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    width: 60px;
-    flex-shrink: 0;
-  }
-  .emotion-track {
-    flex: 1;
-    height: 3px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 9999px;
-    overflow: hidden;
-  }
-  .emotion-fill {
-    height: 100%;
-    border-radius: 9999px;
-    transition: width 1.5s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  .fill-high { background: linear-gradient(90deg, var(--crimson), var(--crimson-light)); width: 0; }
-  .fill-med { background: linear-gradient(90deg, var(--wheat), var(--wheat-light)); width: 0; }
-  .fill-low { background: linear-gradient(90deg, #4a8c6a, #6ab88a); width: 0; }
+/* 情绪条 */
+.emo-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.emo-label{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--fg3);letter-spacing:.1em;width:52px;flex-shrink:0;
+}
+.emo-track{flex:1;height:2px;background:rgba(255,255,255,.06);border-radius:9999px;overflow:hidden;}
+.emo-fill{height:100%;border-radius:9999px;width:0;transition:width 1.4s cubic-bezier(.34,1.56,.64,1);}
+.emo-rust{background:linear-gradient(90deg,var(--rust),var(--rust-l));}
+.emo-wheat{background:linear-gradient(90deg,#8a7030,var(--wheat));}
+.emo-green{background:linear-gradient(90deg,#3a7050,#5aab7a);}
 
-  /* ——— 顺序建议 ——— */
-  .order-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    background: var(--wheat-dim);
-    border: 1px solid rgba(201,150,58,0.2);
-    border-radius: 9999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--wheat);
-    margin-bottom: 10px;
-  }
+.drama-story{
+  font-size:13.5px;color:var(--fg2);line-height:1.9;
+  margin-bottom:18px;margin-top:16px;
+}
+.drama-story strong{color:var(--fg);font-weight:500;}
+.pull-quote{
+  border-left:2px solid var(--wheat);
+  background:linear-gradient(135deg,rgba(201,150,58,.05),transparent);
+  border-radius:0 12px 12px 0;
+  padding:12px 16px;
+  font-size:13px;font-style:italic;color:var(--fg2);line-height:1.85;
+  margin-bottom:18px;
+}
+.pull-quote strong{color:var(--wheat-l);font-style:normal;}
+.tip-list{display:flex;flex-direction:column;gap:8px;}
+.tip-item{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--fg2);}
+.tip-item .ic{flex-shrink:0;font-size:14px;margin-top:1px;}
 
-  /* ——— 时间轴 ——— */
-  .timeline {
-    position: relative;
-    padding-left: 32px;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: linear-gradient(180deg, var(--wheat), rgba(201,150,58,0.1));
-  }
-  .timeline-item {
-    position: relative;
-    padding-bottom: 28px;
-  }
-  .timeline-item:last-child { padding-bottom: 0; }
-  .timeline-dot {
-    position: absolute;
-    left: -26px;
-    top: 6px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--wheat);
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 0 2px rgba(201,150,58,0.3);
-  }
-  .timeline-time {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--wheat);
-    letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-  .timeline-content h4 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: var(--text-primary);
-  }
-  .timeline-content p {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
-  .timeline-urgent {
-    background: rgba(201,150,58,0.08);
-    border: 1px solid rgba(201,150,58,0.15);
-    border-radius: 12px;
-    padding: 12px 14px;
-  }
+/* ── TIMELINE ────────────────────────────── */
+.tl{position:relative;padding-left:28px;}
+.tl::before{
+  content:'';position:absolute;left:7px;top:8px;bottom:8px;
+  width:1px;background:linear-gradient(180deg,var(--wheat),rgba(201,150,58,.08));
+}
+.tl-item{position:relative;padding-bottom:24px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  position:absolute;left:-22px;top:6px;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--wheat);border:2px solid var(--bg);
+  box-shadow:0 0 0 2px rgba(201,150,58,.3);
+}
+.tl-time{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--wheat);letter-spacing:.1em;margin-bottom:4px;
+}
+.tl-box{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:14px;padding:14px 16px;
+}
+.tl-box.urgent{
+  background:rgba(201,150,58,.06);
+  border-color:rgba(201,150,58,.18);
+}
+.tl-box h4{font-size:14px;font-weight:500;margin-bottom:5px;}
+.tl-box p{font-size:12.5px;color:var(--fg2);line-height:1.8;}
 
-  /* ——— 小剧场 GRID ——— */
-  .small-drama-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .small-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.25s, background 0.25s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  .small-card:active {
-    transform: scale(0.98);
-    background: rgba(255,255,255,0.06);
-    border-color: var(--glass-border-strong);
-  }
-  .small-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .small-card-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-  .queue-tag {
-    flex-shrink: 0;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.05em;
-  }
-  .queue-hard {
-    background: rgba(155,58,58,0.15);
-    border: 1px solid rgba(155,58,58,0.25);
-    color: var(--crimson-light);
-  }
-  .queue-easy {
-    background: rgba(74,140,106,0.12);
-    border: 1px solid rgba(74,140,106,0.2);
-    color: #6ab88a;
-  }
-  .queue-none {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--glass-border);
-    color: var(--text-muted);
-  }
-  .small-card-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.75;
-  }
-  .small-card-meta {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .meta-chip {
-    padding: 3px 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--glass-border);
-    border-radius: 9999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-  }
+/* ── SMALL DRAMAS ────────────────────────── */
+.small-section-title{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;color:var(--fg3);text-transform:uppercase;
+  margin:28px 0 12px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.small-cards{display:flex;flex-direction:column;gap:10px;}
+.sc{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:18px;padding:16px 18px;
+  transition:border-color .2s,background .2s,transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.sc:active{transform:scale(.98);background:rgba(255,255,255,.05);border-color:var(--border-w);}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.sc-name{font-size:14px;font-weight:500;}
+.q-tag{
+  flex-shrink:0;padding:3px 9px;border-radius:9999px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;
+}
+.q-hard{background:rgba(155,64,48,.15);border:1px solid rgba(155,64,48,.25);color:var(--rust-l);}
+.q-med{background:rgba(201,150,58,.12);border:1px solid rgba(201,150,58,.2);color:#c8a050;}
+.q-easy{background:rgba(58,112,80,.1);border:1px solid rgba(58,112,80,.2);color:#5aab7a;}
+.q-night{background:rgba(60,60,100,.15);border:1px solid rgba(80,80,140,.2);color:#8898cc;}
+.sc-desc{font-size:12.5px;color:var(--fg2);line-height:1.8;}
+.sc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.sc-chip{
+  padding:2px 9px;border-radius:9999px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg3);
+}
 
-  /* ——— 实用贴士 ——— */
-  .tips-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .tip-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 20px 16px;
-  }
-  .tip-card.full-width {
-    grid-column: 1 / -1;
-  }
-  .tip-card-icon {
-    font-size: 24px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .tip-card h4 {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: var(--text-primary);
-  }
-  .tip-card p, .tip-card li {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
-  .tip-card ul {
-    padding-left: 14px;
-  }
-  .tip-card li { margin-bottom: 4px; }
+/* ── TIPS GRID ───────────────────────────── */
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tip-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:18px;padding:18px 14px;
+}
+.tip-card.full{grid-column:1/-1;}
+.tip-card.highlight{
+  background:rgba(201,150,58,.07);
+  border-color:rgba(201,150,58,.2);
+}
+.tip-icon{font-size:22px;display:block;margin-bottom:9px;}
+.tip-card h4{font-size:13.5px;font-weight:500;margin-bottom:7px;}
+.tip-card p,.tip-card li{font-size:12px;color:var(--fg2);line-height:1.85;}
+.tip-card ul{padding-left:14px;}
+.tip-card li{margin-bottom:3px;}
+.tip-card strong{color:var(--fg);font-weight:500;}
 
-  /* ——— FOOTER ——— */
-  .footer {
-    padding: 48px 24px;
-    border-top: 1px solid var(--glass-border);
-    text-align: center;
-  }
-  .footer-brand {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, var(--wheat), var(--wheat-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-  }
-  .footer-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.1em;
-  }
+/* ── FOOTER ──────────────────────────────── */
+.footer{
+  padding:48px 24px 56px;
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+.footer-brand{
+  font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--wheat),var(--wheat-l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.footer-sub{font-size:11px;color:var(--fg3);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;margin-top:6px;}
 
-  /* ——— Back to top ——— */
-  .back-top {
-    position: fixed;
-    bottom: 28px;
-    right: 20px;
-    width: 44px; height: 44px;
-    border-radius: 9999px;
-    background: rgba(201,150,58,0.15);
-    border: 1px solid rgba(201,150,58,0.3);
-    backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(12px);
-    transition: opacity 0.3s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    text-decoration: none;
-    color: var(--wheat-light);
-  }
-  .back-top.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-  .back-top:active { transform: scale(0.9); }
+/* ── BACK TO TOP ─────────────────────────── */
+.btt{
+  position:fixed;bottom:24px;right:18px;
+  width:44px;height:44px;border-radius:9999px;
+  background:rgba(201,150,58,.14);border:1px solid rgba(201,150,58,.28);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--wheat-l);
+  text-decoration:none;cursor:pointer;
+  opacity:0;pointer-events:none;
+  transform:translateY(10px);
+  transition:opacity .3s,transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.btt.show{opacity:1;pointer-events:auto;transform:translateY(0);}
 
-  /* ——— REVEAL ——— */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
-                transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* 全幅分割区 */
-  .full-bleed-banner {
-    background: linear-gradient(135deg, rgba(201,150,58,0.08) 0%, rgba(155,58,58,0.05) 100%);
-    border-top: 1px solid rgba(201,150,58,0.12);
-    border-bottom: 1px solid rgba(201,150,58,0.12);
-    padding: 40px 24px;
-    margin: 0;
-  }
-  .quote-text {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    text-align: center;
-  }
-  .quote-text em {
-    color: var(--wheat-light);
-    font-style: normal;
-  }
-
-  /* 顺序指引 */
-  .order-guide {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    overflow: hidden;
-    margin-bottom: 32px;
-  }
-  .order-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 24px;
-    border-bottom: 1px solid var(--glass-border);
-    position: relative;
-  }
-  .order-item:last-child { border-bottom: none; }
-  .order-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--wheat);
-    opacity: 0.5;
-    min-width: 28px;
-  }
-  .order-info h4 {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-  }
-  .order-info p {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .order-item.highlight-item {
-    background: rgba(201,150,58,0.06);
-  }
+/* ── 小剧场标题样式 ───────────────────────── */
+.big-num-ghost{
+  position:absolute;right:0;top:0;
+  font-family:'Outfit',sans-serif;font-size:120px;font-weight:900;
+  color:var(--fg);opacity:.025;line-height:1;pointer-events:none;
+}
 </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-  <div class="navbar-brand">只有河南 · 深度攻略</div>
-  <ul class="navbar-links">
-    <li><a href="#first-move">入场</a></li>
-    <li><a href="#main-dramas">主剧</a></li>
-    <li><a href="#schedule">时刻</a></li>
-    <li><a href="#small-dramas">小剧</a></li>
-    <li><a href="#tips">贴士</a></li>
-  </ul>
+<nav class="nav" id="nav">
+  <div class="nav-brand">只有河南 · 深度攻略</div>
+  <div class="nav-hamburger" id="hamburger" role="button" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+<div class="nav-drawer" id="drawer">
+  <div class="drawer-links">
+    <a href="#first-move" onclick="closeDrawer()">① 进门第一件事</a>
+    <a href="#main-dramas" onclick="closeDrawer()">② 三大主剧深读</a>
+    <a href="#schedule" onclick="closeDrawer()">③ 一日时间规划</a>
+    <a href="#small-dramas" onclick="closeDrawer()">④ 18个小剧场全览</a>
+    <a href="#tips" onclick="closeDrawer()">⑤ 实用贴士</a>
+  </div>
+</div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-ghost">河</div>
   <div class="hero-scroll">
     <div class="hero-scroll-line"></div>
-    <span>scroll</span>
   </div>
   <div style="position:relative;z-index:1;">
-    <div class="hero-eyebrow">2026 · 只有河南 · 戏剧幻城 · 观演深度攻略</div>
+    <div class="hero-eyebrow">2026.05.22 · 只有河南 · 戏剧幻城 · 观演深度攻略</div>
     <h1 class="hero-title">
-      不只是看剧<br>
-      是走进<span>五千年</span>
+      不只是看剧<br>是走进<em>五千年</em>
     </h1>
-    <p class="hero-subtitle">21个剧场，700分钟不重复演出。这不是景区，是黄土地上长出来的文明现场。</p>
-    <div class="hero-meta">
-      <div class="hero-tag">
-        <div class="dot"></div>
-        一日游精华路线
-      </div>
-      <div class="hero-tag">🌾 麦田 · 1942 · 幻城</div>
+    <p class="hero-sub">21个剧场，800分钟不重复演出。这不是景区，是黄土地上长出来的文明现场。</p>
+    <div class="hero-chips">
+      <div class="chip"><div class="dot"></div>一日精华路线</div>
+      <div class="chip">🌾 1942 · 麦田 · 幻城</div>
     </div>
   </div>
 </section>
 
-<!-- 引言全幅 -->
-<div class="full-bleed-banner reveal">
-  <p class="quote-text">「21座夯土剧场从麦田中拔地而起，<em>观众不是旁观者</em>，<br>而是走进了一个用戏剧浇筑的<em>文明回声</em>」</p>
+<!-- QUOTE -->
+<div class="quote-band reveal">
+  <p class="quote-text">
+    21座夯土剧场从麦田中拔地而起<br>
+    <strong>观众不是旁观者，是走进了文明回声里的人</strong>
+  </p>
 </div>
 
-<!-- ——— 进门第一件事 ——— -->
+<!-- ① 进门第一件事 -->
 <section class="section" id="first-move">
-  <div class="section-label">FIRST MOVE</div>
-  <div class="section-title">进门，先做这三件事</div>
-  
-  <div class="entry-card reveal">
-    <div class="entry-number">01</div>
-    <h3>打开「只有河南」小程序</h3>
-    <p>查看<strong style="color:var(--wheat-light)">今日节目单</strong>——每天场次时间会变动。把「火车站剧场」「李家村剧场」「幻城剧场」的时间抄下来，倒着规划路线。<br><br>场次少的剧目（多数下午5点后就没有）优先安排，别等到下午才想起来。</p>
-  </div>
-
-  <div class="entry-card reveal">
-    <div class="entry-number">02</div>
-    <h3>三大主剧：先看火车站</h3>
-    <p>火车站→李家村有连贯故事线，<strong style="color:var(--wheat-light)">必须按顺序看</strong>。先看李家村的话，很多情感铺垫会缺失，打折扣。<br><br>幻城剧场相对独立，视觉冲击最强，安排在下午精神好的时候看效果最佳。</p>
-  </div>
-
-  <div class="entry-card reveal">
-    <div class="entry-number">03</div>
-    <h3>红庙学校 / 李家村茶铺：开门就排</h3>
-    <p>这两个小剧场只能容纳<strong style="color:var(--wheat-light)">100人</strong>，是全园最难排的剧目，互动性超强、又搞笑。进门后直奔其中一个排第一场，约等1小时；后面再排要等两场，约2小时。<br><br>进门就去，是最省时的选择。</p>
+  <div class="sec-label">FIRST MOVE</div>
+  <div class="sec-title">进门，先做这三件事</div>
+  <div class="entry-cards">
+    <div class="entry-card reveal">
+      <div class="entry-n">01</div>
+      <h3>打开小程序，抄下今日场次时间</h3>
+      <p>微信搜索「只有河南」小程序 → 今日节目单。每天场次时间会变动，<strong>先看哪场后看哪场，要倒推着规划</strong>。很多小剧场下午5点后就没有场次了，不提前看就白走一趟。</p>
+    </div>
+    <div class="entry-card reveal">
+      <div class="entry-n">02</div>
+      <h3>三大主剧：必须先看火车站</h3>
+      <p>「火车站剧场」→「李家村剧场」有连贯故事线，<strong>顺序不能错</strong>。先看李家村的话，情感铺垫会缺失，很多击中你的瞬间打折扣。幻城剧场相对独立，灵活安排。</p>
+    </div>
+    <div class="entry-card reveal">
+      <div class="entry-n">03</div>
+      <h3>开门冲「红庙学校」或「李家村茶铺」</h3>
+      <p>全园最难排的两个小剧场，<strong>容量只有100人</strong>，互动性极强，超级搞笑。进门就去排第一场，约等1小时；晚了要等两场，约2小时。进门第一件事，没有之一。</p>
+    </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ——— 三大主剧 ——— -->
+<!-- ② 三大主剧 -->
 <section class="section" id="main-dramas">
-  <div class="section-label">MAIN STAGE</div>
-  <div class="section-title">三大主剧，逐一读懂</div>
+  <div class="sec-label">MAIN STAGE</div>
+  <div class="sec-title">三大主剧，逐一读懂</div>
 
   <!-- 火车站 -->
   <div class="drama-card reveal">
-    <div class="drama-header">
-      <div class="drama-ghost-num">01</div>
-      <div class="drama-badge badge-warn">⚠ 破防预警 · 高情绪强度</div>
+    <div class="drama-head">
+      <div class="drama-ghost-n">01</div>
+      <div class="badge badge-warn">⚠ 破防预警 · 高情绪强度</div>
       <div class="drama-title">火车站剧场</div>
-      <div class="drama-subtitle">1942 · 行进式环形 · ~75分钟</div>
+      <div class="drama-meta">1942大饥荒 · 环形行进式 · ~75分钟</div>
     </div>
     <div class="drama-body">
-      <div class="emotion-bar">
-        <div class="emotion-label">情绪张力</div>
-        <div class="emotion-track"><div class="emotion-fill fill-high" data-width="92%"></div></div>
+      <div class="emo-row"><div class="emo-label">情绪张力</div><div class="emo-track"><div class="emo-fill emo-rust" data-w="93%"></div></div></div>
+      <div class="emo-row"><div class="emo-label">视觉震撼</div><div class="emo-track"><div class="emo-fill emo-wheat" data-w="75%"></div></div></div>
+      <p class="drama-story">
+        1942年大饥荒。火车站站长李十八的哥哥李十一来要粮——<strong>给，弟弟死；不给，全村死。</strong><br>你站在环形舞台正中央，被演员包围，不是台上台下的距离，是真实站在这个抉择里。
+      </p>
+      <div class="pull-quote">
+        <strong>真正击中你的不是剧情</strong>，是那一句「他们不是要吃的粮，是要能长出希望的种」说完之后，灯暗了，粮食落地的声音在黑暗里响着。
       </div>
-      <div class="emotion-bar">
-        <div class="emotion-label">视觉震撼</div>
-        <div class="emotion-track"><div class="emotion-fill fill-med" data-width="78%"></div></div>
-      </div>
-      <p class="drama-story">1942年，河南大饥荒。火车站站长李十八——他的哥哥李十一来要粮：<strong style="color:var(--text-primary)">给，弟弟死；不给，全村死。</strong><br><br>你站在环形舞台中央，被演员包围。不是台上台下，是真实地站在这个抉择里，看他们做决定。</p>
-      <div class="drama-highlight">
-        <strong>真正震撼你的不是剧情</strong>，而是那些「他们不是要吃的粮，是要能长出希望的种」这样的话——说完灯暗了，粮食落地的声音在黑暗里响着。
-      </div>
-      <div class="drama-tips">
-        <div class="tip-row"><span class="tip-icon">📍</span><span>第一场演出，演员在两侧墙上展开。<strong>个子矮的不要站中间，尽量靠边</strong>——中间视线会被挡</span></div>
-        <div class="tip-row"><span class="tip-icon">🚪</span><span>大剧场开场前2分钟进即可，不用提前排队抢位</span></div>
-        <div class="tip-row"><span class="tip-icon">🧻</span><span>带纸巾。认真的</span></div>
+      <div class="tip-list">
+        <div class="tip-item"><span class="ic">📍</span><span>第一场演出区域在两侧墙上展开——<strong>个子矮的靠边站，不要站中间</strong></span></div>
+        <div class="tip-item"><span class="ic">🚪</span><span>开场前2分钟入场即可，大剧场不用提前排队抢位</span></div>
+        <div class="tip-item"><span class="ic">🧻</span><span>带纸巾。认真的建议</span></div>
       </div>
     </div>
   </div>
 
   <!-- 李家村 -->
   <div class="drama-card reveal">
-    <div class="drama-header">
-      <div class="drama-ghost-num">02</div>
-      <div class="drama-badge badge-warn">⚠ 破防预警 · 漫天麦粒</div>
+    <div class="drama-head">
+      <div class="drama-ghost-n">02</div>
+      <div class="badge badge-warn">⚠ 破防预警 · 漫天麦粒</div>
       <div class="drama-title">李家村剧场</div>
-      <div class="drama-subtitle">1942 · 360°沉浸 · ~75分钟</div>
+      <div class="drama-meta">1942传承 · 360°沉浸转场 · ~75分钟</div>
     </div>
     <div class="drama-body">
-      <div class="emotion-bar">
-        <div class="emotion-label">情绪张力</div>
-        <div class="emotion-track"><div class="emotion-fill fill-high" data-width="88%"></div></div>
+      <div class="emo-row"><div class="emo-label">情绪张力</div><div class="emo-track"><div class="emo-fill emo-rust" data-w="88%"></div></div></div>
+      <div class="emo-row"><div class="emo-label">视觉震撼</div><div class="emo-track"><div class="emo-fill emo-wheat" data-w="96%"></div></div></div>
+      <p class="drama-story">
+        接续火车站的故事。村里老人们在饥荒中，<strong>主动选择赴死，把仅有的粮食和种子留给年轻人</strong>。没有台词轰炸，全靠肢体和眼神。从慌乱抢粮，到老人平静的决定，再到年轻人颤抖地接过种子——全程几乎无声，却全程击中。
+      </p>
+      <div class="pull-quote">
+        <strong>剧终：数吨麦粒从穹顶倾泻而下</strong>，覆盖整个剧场。金色暴雨里，你同时感受到重量和轻盈——他们的死，变成了这些种子。
       </div>
-      <div class="emotion-bar">
-        <div class="emotion-label">视觉震撼</div>
-        <div class="emotion-track"><div class="emotion-fill fill-med" data-width="95%"></div></div>
-      </div>
-      <p class="drama-story">接续火车站的故事——村里的老人们，饥荒年间主动选择赴死，把仅有的粮食和种子留给年轻人。<br><br>没有台词轰炸，只有肢体和眼神。从慌乱的抢粮，到老人平静的决定，再到年轻人接过种子时的颤抖——全程几乎无声，却全程击中。</p>
-      <div class="drama-highlight">
-        <strong>剧终：漫天麦粒从穹顶倾泻而下</strong>，覆盖整个剧场。金色暴雨里，你站在里面，同时感觉到重量和轻盈——他们的死，变成了这些种子。
-      </div>
-      <div class="drama-tips">
-        <div class="tip-row"><span class="tip-icon">🎯</span><span>座位选<strong>单号区前10排</strong>，视线最好；离出口近</span></div>
-        <div class="tip-row"><span class="tip-icon">👆</span><span>必须在火车站剧场之后看，故事才完整</span></div>
+      <div class="tip-list">
+        <div class="tip-item"><span class="ic">🎯</span><span>座位选<strong>单号区前10排</strong>，视线最好，离转场出口近</span></div>
+        <div class="tip-item"><span class="ic">↩</span><span>必须在火车站剧场之后看，故事线才完整</span></div>
       </div>
     </div>
   </div>
 
   <!-- 幻城 -->
   <div class="drama-card reveal">
-    <div class="drama-header">
-      <div class="drama-ghost-num">03</div>
-      <div class="drama-badge badge-must">★ 视觉最强 · 史诗级</div>
+    <div class="drama-head">
+      <div class="drama-ghost-n">03</div>
+      <div class="badge badge-gold">★ 视觉最强 · 史诗级</div>
       <div class="drama-title">幻城剧场</div>
-      <div class="drama-subtitle">千年文明 · 坐定式 · 3000座 · ~82分钟</div>
+      <div class="drama-meta">千年文明 · 坐定式 · 容纳3000人 · ~82分钟</div>
     </div>
     <div class="drama-body">
-      <div class="emotion-bar">
-        <div class="emotion-label">情绪张力</div>
-        <div class="emotion-track"><div class="emotion-fill fill-med" data-width="65%"></div></div>
+      <div class="emo-row"><div class="emo-label">情绪张力</div><div class="emo-track"><div class="emo-fill emo-wheat" data-w="62%"></div></div></div>
+      <div class="emo-row"><div class="emo-label">视觉震撼</div><div class="emo-track"><div class="emo-fill emo-rust" data-w="99%"></div></div></div>
+      <p class="drama-story">
+        片段式叙事——从甲骨文到宋词，孔子、老子、宋徽宗与当代人对话。<strong>可升降至三楼高的机械舞台</strong>，全息投影把《清明上河图》《千里江山图》搬上来，虚实交错，光影震撼。情绪烈度不如前两场，但画面会让你忍不住拍照。
+      </p>
+      <div class="pull-quote">
+        唯一一场<strong>坐着看、不用跟着走</strong>的主剧。走了半天路，坐下来被视觉史诗震撼一遍，节奏刚好。
       </div>
-      <div class="emotion-bar">
-        <div class="emotion-label">视觉震撼</div>
-        <div class="emotion-track"><div class="emotion-fill fill-high" data-width="98%"></div></div>
-      </div>
-      <p class="drama-story">没有固定故事线——是片段式的，从甲骨文到宋词，孔子、老子、宋徽宗与当代人对话。<br><br>可升降至三楼高的机械舞台，配全息投影，把《清明上河图》《千里江山图》搬上来——是视觉盛宴，情绪不如前两场强烈，但画面会让你忍不住拍照。</p>
-      <div class="drama-highlight">
-        与前两场不同，这是唯一一场<strong>坐着看、不用跟着走</strong>的主剧。适合安排在走了很多路之后，坐下来喘口气、同时被震撼一下。
-      </div>
-      <div class="drama-tips">
-        <div class="tip-row"><span class="tip-icon">💺</span><span>坐哪里效果都差不多，不用为抢位置提前排队</span></div>
-        <div class="tip-row"><span class="tip-icon">📸</span><span>光影最美的时段在开场后20分钟和结尾，提前调好拍照模式</span></div>
+      <div class="tip-list">
+        <div class="tip-item"><span class="ic">💺</span><span>坐哪里效果都差不多，不用为位置提前排队</span></div>
+        <div class="tip-item"><span class="ic">📸</span><span>开场后20分钟和结尾光影最美，提前调好拍照模式</span></div>
       </div>
     </div>
   </div>
@@ -905,67 +572,74 @@
 
 <div class="divider"></div>
 
-<!-- ——— 时间规划 ——— -->
+<!-- ③ 时间规划 -->
 <section class="section" id="schedule">
-  <div class="section-label">TIME TABLE</div>
-  <div class="section-title">一日时间规划</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:32px;line-height:1.8;">营业时间 10:00–21:00。一天真的不够，但按这个顺序能把精华全部看完。</p>
-
-  <div class="timeline reveal">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">10:00 · 开门即入</div>
-      <div class="timeline-content timeline-urgent">
+  <div class="sec-label">TIME TABLE</div>
+  <div class="sec-title">一日时间规划</div>
+  <p style="font-size:13px;color:var(--fg2);margin-bottom:28px;line-height:1.85;">营业时间 10:00–21:00。按这个节奏，能把精华全部看完。</p>
+  <div class="tl reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">10:00 · 开门即入</div>
+      <div class="tl-box urgent">
         <h4>🏃 直奔红庙学校 或 李家村茶铺</h4>
-        <p>全园最难排的两个小剧场，容量仅100人。开门第一件事就去排第一场，约等1小时。排队等待期间可以边逛边感受建筑氛围。</p>
+        <p>容量100人，全园最难排。进门第一件事，排第一场约等1小时。等待期间感受建筑氛围。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">11:00 · 第一个小剧场散场</div>
-      <div class="timeline-content">
-        <h4>查看节目单，锁定火车站时间</h4>
-        <p>找到上午或午后最近一场火车站剧场。中间空档可以逛天子驾六坑、老库房，这两个不用排队。</p>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">11:00 · 散场后</div>
+      <div class="tl-box">
+        <h4>查节目单，锁定火车站场次</h4>
+        <p>找到上午或午后最近一场。空档可以逛天子驾六坑、候车大厅，不用排队。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">12:00–13:00</div>
-      <div class="timeline-content">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">12:00</div>
+      <div class="tl-box">
         <h4>麦浪餐厅吃饭</h4>
-        <p>景区内有正价餐厅，价格适中，不贵。可乐6元、矿泉水3元。不建议带外食，演出之间穿行太累了。</p>
+        <p>景区内价格适中，可乐6元、矿泉水3元。不建议带外食，演出间穿行太累。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">13:30 · 核心时段开始</div>
-      <div class="timeline-content timeline-urgent">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">13:30 · 核心时段</div>
+      <div class="tl-box urgent">
         <h4>🎭 火车站剧场 → 李家村剧场</h4>
-        <p>连续看这两场，中间尽量衔接紧凑。两场合计约150分钟。看完之后找地方坐一坐缓缓——情绪需要时间落地。</p>
+        <p>连续看，中间尽量衔接紧凑，两场合计约150分钟。看完找地方坐一坐——情绪需要时间落地。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">17:00 前 · 紧迫时段</div>
-      <div class="timeline-content timeline-urgent">
-        <h4>⚡ 抓紧看日场结束的小剧场</h4>
-        <p>天子驾六坑、第七机车礼堂、老库房等，很多5点后没有场次。这段时间最宝贵，不要走马观花，每场25–30分钟。</p>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">16:30 前 · 紧迫时段</div>
+      <div class="tl-box urgent">
+        <h4>⚡ 抓紧日场快结束的小剧场</h4>
+        <p>老库房、第七机车礼堂、天子驾六坑、陈羊汤等，很多5点后没有场次。这段时间最宝贵。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">17:30–19:30</div>
-      <div class="timeline-content">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">17:30 – 19:30</div>
+      <div class="tl-box">
         <h4>幻城剧场</h4>
-        <p>视觉史诗，坐着看，不用走动。走了一天路正好在这里坐下来被震撼。</p>
+        <p>视觉史诗，坐着看。走了一天路，正好坐下来被震撼一遍。</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-time">20:30 · 闭园前</div>
-      <div class="timeline-content timeline-urgent">
-        <h4>✨ 出口处光影秀</h4>
-        <p>《清明上河图》在整面幻城外墙流动，必看。提前一点出去，在台子上坐着等，不要走太早。</p>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">19:30 – 21:00 · 夜场</div>
+      <div class="tl-box">
+        <h4>🌙 室外夜场：张家大院、椅阵、乾台坤台</h4>
+        <p>这些剧目只在晚上演出，无需排队，灯光氛围极好。出门前顺路看闭园光影秀。</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">20:45 · 闭园前</div>
+      <div class="tl-box urgent">
+        <h4>✨ 出口光影秀「文明之光」</h4>
+        <p>《清明上河图》在整面夯土外墙流动，提前一点出去坐在台子上等，千万不要错过。</p>
       </div>
     </div>
   </div>
@@ -973,145 +647,211 @@
 
 <div class="divider"></div>
 
-<!-- ——— 小剧场精选 ——— -->
+<!-- ④ 18个小剧场全览 -->
 <section class="section" id="small-dramas">
-  <div class="section-label">SMALL STAGE</div>
-  <div class="section-title">小剧场精选</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;">18个小剧场，每场25-30分钟。按「值不值得排队」分类。</p>
+  <div class="sec-label">ALL 18 SMALL STAGES</div>
+  <div class="sec-title">18个小剧场全览</div>
+  <p style="font-size:13px;color:var(--fg2);margin-bottom:8px;line-height:1.85;">每场15–30分钟。按优先级分组，一日游重点看A组。</p>
 
-  <!-- 强烈推荐 -->
-  <div style="margin-bottom:12px;">
-    <div class="drama-badge badge-must" style="display:inline-flex;margin-bottom:12px;">★ 强烈推荐</div>
-  </div>
-  <div class="small-drama-grid">
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">🏫 红庙学校</div>
-        <div class="queue-tag queue-hard">排队 2h</div>
+  <!-- A 组：开门就去 -->
+  <div class="small-section-title">🔴 A · 开门就去排 / 最难排</div>
+  <div class="small-cards">
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🏫 红庙学校</div>
+        <div class="q-tag q-hard">排队 ~2h</div>
       </div>
-      <div class="small-card-desc">搞笑互动剧，把观众卷进去当「学生」。笑点密集、真实感超强。进门就去排是最优解，不然后面要等2小时。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">互动性极强</div>
-        <div class="meta-chip">容量100人</div>
-        <div class="meta-chip">VIP票69元免排</div>
-      </div>
+      <div class="sc-desc">把观众卷进去当「学生」，笑点密集，互动性全园第一。进门就排，是最优解。</div>
+      <div class="sc-chips"><div class="sc-chip">容量100人</div><div class="sc-chip">VIP票69元免排</div><div class="sc-chip">超搞笑</div></div>
     </div>
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">🍵 李家村茶铺</div>
-        <div class="queue-tag queue-hard">排队 2h</div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🍵 李家村茶铺</div>
+        <div class="q-tag q-hard">排队 ~2h</div>
       </div>
-      <div class="small-card-desc">和红庙学校一样难排，互动性同样很强，民俗氛围浓郁，和主剧形成温馨反差。二选一优先看这个。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">互动性极强</div>
-        <div class="meta-chip">容量100人</div>
-        <div class="meta-chip">VIP票69元免排</div>
-      </div>
-    </div>
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">🏺 天子驾六坑</div>
-        <div class="queue-tag queue-easy">较少等待</div>
-      </div>
-      <div class="small-card-desc">演员最少却最精，剧情高度凝练，表演张力极强。没有大制作，纯靠演员撑起来——反而最打动人。排队人数适中，最佳观看位置在演员坐着的位置前后。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">演技炸裂</div>
-        <div class="meta-chip">历史感强</div>
-      </div>
-    </div>
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">🎸 老库房</div>
-        <div class="queue-tag queue-none">无需排队</div>
-      </div>
-      <div class="small-card-desc">小型乐队现场演出 + 蹦迪环节。年轻人必去，在一堆沉重历史题材里，这里是纯粹的爽。容量大，站着看也行。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">嗨 · 解压</div>
-        <div class="meta-chip">晚上更好</div>
-      </div>
+      <div class="sc-desc">民俗互动氛围浓郁，和主剧形成温馨反差。与红庙学校二选一，优先级同等高。</div>
+      <div class="sc-chips"><div class="sc-chip">容量100人</div><div class="sc-chip">VIP票69元免排</div><div class="sc-chip">互动性强</div></div>
     </div>
   </div>
 
-  <!-- 值得一看 -->
-  <div style="margin: 20px 0 12px;">
-    <div class="drama-badge badge-info" style="display:inline-flex;margin-bottom:12px;">◎ 值得一看</div>
-  </div>
-  <div class="small-drama-grid">
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">🚂 第七机车礼堂</div>
-        <div class="queue-tag queue-none">无需排队</div>
+  <!-- B 组：强烈推荐 -->
+  <div class="small-section-title">🟡 B · 强烈推荐 / 等待可控</div>
+  <div class="small-cards">
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🏺 天子驾六遗址坑</div>
+        <div class="q-tag q-med">等待适中</div>
       </div>
-      <div class="small-card-desc">穿越感强，演员颜值高，剧情在历史与现代之间跳跃。看完有小感动、有小开心、还有一点教育意义。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">穿越感</div>
-        <div class="meta-chip">容量大</div>
-      </div>
+      <div class="sc-desc">演员最少却最精，纯靠表演张力撑起来，剧情高度凝练，历史感极强。最佳位置在演员坐着的前后。</div>
+      <div class="sc-chips"><div class="sc-chip">演技炸裂</div><div class="sc-chip">周朝故事</div></div>
     </div>
-    <div class="small-card reveal">
-      <div class="small-card-header">
-        <div class="small-card-title">✨ 出口光影秀</div>
-        <div class="queue-tag queue-none">无需排队</div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🎸 老库房</div>
+        <div class="q-tag q-easy">基本不用等</div>
       </div>
-      <div class="small-card-desc">闭园前在出口外墙上演，《清明上河图》在整面夯土墙上流动。必须等到这个——室内那些剧都结束之后，这是最后的高光。</div>
-      <div class="small-card-meta">
-        <div class="meta-chip">闭园前</div>
-        <div class="meta-chip">有台子可坐</div>
+      <div class="sc-desc">小型乐队现场演出 + 蹦迪环节，年轻人必去。在一堆沉重历史题材里，这里是纯粹的爽。容量大，站着看也行，晚上气氛更好。</div>
+      <div class="sc-chips"><div class="sc-chip">嗨·解压</div><div class="sc-chip">容量大</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🚂 第七机车车辆厂礼堂</div>
+        <div class="q-tag q-easy">基本不用等</div>
       </div>
+      <div class="sc-desc">穿越感强，历史与现代之间跳跃，演员颜值高。看完有小感动、有小开心，还有教育意义。</div>
+      <div class="sc-chips"><div class="sc-chip">穿越感</div><div class="sc-chip">容量大</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🚉 候车大厅</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">还原民国火车站候车场景，与「火车站剧场」形成呼应，看完主剧后来这里感受最深。</div>
+      <div class="sc-chips"><div class="sc-chip">呼应主剧</div><div class="sc-chip">沉浸感强</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🍜 陈羊汤</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">烟火气浓郁的市井小剧，在幻城里感受最平民化的河南日常，和大剧情绪形成节奏上的呼吸。</div>
+      <div class="sc-chips"><div class="sc-chip">烟火气</div><div class="sc-chip">轻松</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">💫 前生来世</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">关于轮回与时间的哲学意味剧目，风格特别，在整体历史叙事里是异质感很强的存在。</div>
+      <div class="sc-chips"><div class="sc-chip">哲学感</div><div class="sc-chip">风格独特</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">💡 光与影</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">光影互动艺术装置与表演结合，视觉体验特别，是幻城里偏当代艺术风格的剧目。</div>
+      <div class="sc-chips"><div class="sc-chip">装置艺术</div><div class="sc-chip">视觉系</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🏠 下沉岁月</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">呈现地坑院这一河南传统建筑形式中的生活方式，历史文化密度高，有安静的美感。</div>
+      <div class="sc-chips"><div class="sc-chip">建筑文化</div><div class="sc-chip">安静</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🚶 俺要回家</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">以河南人闯关东、走西口、务工潮为背景，讲「离乡」与「归根」，很容易触动有乡愁的观众。</div>
+      <div class="sc-chips"><div class="sc-chip">乡愁题材</div><div class="sc-chip">情感浓</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">📚 我是河南人</div>
+        <div class="q-tag q-easy">基本不用等</div>
+      </div>
+      <div class="sc-desc">以旁白式独白讲述河南人的自我认知与外部偏见，内容直接有力，看完对「只有河南」四个字理解更深。</div>
+      <div class="sc-chips"><div class="sc-chip">独白形式</div><div class="sc-chip">直击人心</div></div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">📖 覆斗书场</div>
+        <div class="q-tag q-night">夜场</div>
+      </div>
+      <div class="sc-desc">室外夜间演出，以说书形式讲中原历史，传统技艺与戏剧结合，夜晚灯光下氛围极好。</div>
+      <div class="sc-chips"><div class="sc-chip">晚间演出</div><div class="sc-chip">传统说书</div></div>
+    </div>
+  </div>
+
+  <!-- C 组：夜场随缘 -->
+  <div class="small-section-title">🔵 C · 夜场随缘 / 直接走去就能看</div>
+  <div class="small-cards">
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🏯 张家大院</div>
+        <div class="q-tag q-night">夜场·无需排队</div>
+      </div>
+      <div class="sc-desc">室外夜场，讲述中原大家族的兴衰史，建筑本身就是舞台，夜晚观感极佳。</div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🪑 椅阵</div>
+        <div class="q-tag q-night">夜场·无需排队</div>
+      </div>
+      <div class="sc-desc">室外大型装置式表演，数百把椅子构成的场域，视觉冲击强，适合拍照打卡。</div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">🌀 乾台 · 坤台</div>
+        <div class="q-tag q-night">夜场·无需排队</div>
+      </div>
+      <div class="sc-desc">以「天地」为主题的一对室外剧场，氛围仪式感强，夜间灯光配合整体意境非常好。</div>
+    </div>
+    <div class="sc reveal">
+      <div class="sc-top">
+        <div class="sc-name">✨ 文明之光（闭园秀）</div>
+        <div class="q-tag q-night">闭园前·必看</div>
+      </div>
+      <div class="sc-desc">《清明上河图》在整面328米夯土外墙上流动。在出口处台子上坐着等，是一天的完美收尾。千万不要提前走。</div>
+      <div class="sc-chips"><div class="sc-chip">必看</div><div class="sc-chip">闭园前演出</div></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ——— 实用贴士 ——— -->
+<!-- ⑤ 实用贴士 -->
 <section class="section" id="tips">
-  <div class="section-label">PRACTICAL TIPS</div>
-  <div class="section-title">真正有用的贴士</div>
-
+  <div class="sec-label">PRACTICAL TIPS</div>
+  <div class="sec-title">真正有用的贴士</div>
   <div class="tips-grid reveal">
-    <div class="tip-card full-width" style="background:linear-gradient(135deg,rgba(201,150,58,0.08),transparent);border-color:rgba(201,150,58,0.2);">
-      <span class="tip-card-icon">🌾</span>
-      <h4>这不是「走马观花」的地方</h4>
-      <p>21个剧场700分钟，一天看不完。<strong style="color:var(--wheat-light)">不要贪多</strong>——主剧3场 + 精选小剧4–5个，认真看，比走完所有剧场意义大得多。看完火车站剧场，给自己5分钟在外面站一站。</p>
+    <div class="tip-card full highlight">
+      <span class="tip-icon">🌾</span>
+      <h4>不要贪多，认真看才是真的看</h4>
+      <p>18个小剧场一天看不完。<strong>主剧3场 + 精选小剧4–5个</strong>，认真看，比走马观花完所有剧场意义大得多。看完火车站剧场，给自己5分钟在外面站一站，情绪需要时间落地。</p>
     </div>
     <div class="tip-card">
-      <span class="tip-card-icon">👟</span>
+      <span class="tip-icon">👟</span>
       <h4>穿平底鞋</h4>
-      <p>全天走路不低于3万步，行进式剧场还要跟着走动。高跟鞋 = 主动伤害自己。</p>
+      <p>全天 3–4 万步，行进式剧场还要跟着走。高跟鞋 = 主动伤害自己。</p>
     </div>
     <div class="tip-card">
-      <span class="tip-card-icon">🎨</span>
-      <h4>素色衣物更出片</h4>
-      <p>夯土墙是暖棕色，深色/素色衣服与场景融合好，拍出来更有「大片感」。</p>
-    </div>
-    <div class="tip-card">
-      <span class="tip-card-icon">📱</span>
+      <span class="tip-icon">📱</span>
       <h4>带充电宝</h4>
-      <p>全程手机导航+查节目单+拍照，电量消耗很快。强烈建议带一个。</p>
+      <p>全程手机导航 + 查节目单 + 拍照，电量消耗极快。</p>
     </div>
     <div class="tip-card">
-      <span class="tip-card-icon">🗺️</span>
-      <h4>迷路就问人</h4>
-      <p>园区地图不太直观，小程序地图也时有偏差。直接问路边工作人员，他们都很热情，比自己瞎走快多了。</p>
+      <span class="tip-icon">🎨</span>
+      <h4>素色衣服更出片</h4>
+      <p>夯土墙是暖棕色，素色 / 深色与场景融合好，拍出来有大片感。</p>
     </div>
-    <div class="tip-card full-width">
-      <span class="tip-card-icon">💰</span>
+    <div class="tip-card">
+      <span class="tip-icon">🗺️</span>
+      <h4>迷路就问人</h4>
+      <p>小程序地图有时偏差，直接问工作人员，热情且准确。</p>
+    </div>
+    <div class="tip-card full">
+      <span class="tip-icon">💰</span>
       <h4>门票与加场</h4>
       <ul>
-        <li>一日票 290元，含1场主剧；两日票 390元，含3大主剧</li>
-        <li>一日票想加看其他大剧，找工作人员 70元/场</li>
-        <li>想换主剧时间，找工作人员补 10元即可</li>
-        <li>红庙/茶铺不想排队：门口买海魂衫/扇子，69元含VIP票</li>
+        <li>一日票 290元，含1场主剧入场</li>
+        <li>两日票 390元，含3大主剧（推荐）</li>
+        <li>一日票加看其他大剧：找工作人员补 70元/场</li>
+        <li>想换主剧时间：找工作人员补 10元</li>
+        <li>红庙/茶铺不想排队：门口买海魂衫/扇子 69元含VIP票</li>
       </ul>
     </div>
-    <div class="tip-card full-width">
-      <span class="tip-card-icon">🚇</span>
+    <div class="tip-card full">
+      <span class="tip-icon">🚇</span>
       <h4>交通</h4>
       <ul>
-        <li>公交：紫荆山 → S605路，或郑州东站 → S606路，到「只有河南站」，5元</li>
-        <li>高铁来：12306买到绿博园，快捷换乘轻轨，无需出站</li>
-        <li>自驾：免费停车</li>
+        <li>公交：紫荆山 → S605路 / 郑州东站 → S606路，到「只有河南站」，5元</li>
+        <li>高铁：12306买到绿博园站，快捷换乘轻轨，无需出站</li>
+        <li>自驾：免费停车场</li>
       </ul>
     </div>
   </div>
@@ -1120,53 +860,42 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">月読 · 八千代</div>
-  <div class="footer-sub" style="margin-top:8px;">为有言准备的观演攻略 · 2026.05.22</div>
-  <div class="footer-sub" style="margin-top:4px;opacity:0.5;">🌾 去感受那片麦田吧</div>
+  <div class="footer-sub">为有言准备的观演深度攻略 · 2026.05.22</div>
+  <div class="footer-sub" style="margin-top:4px;opacity:.45;">🌾 去感受那片麦田吧</div>
 </footer>
 
-<!-- Back to top -->
-<a class="back-top" id="backTop" href="#hero">↑</a>
+<a class="btt" id="btt" href="#top">↑</a>
 
 <script>
-  // Loaded animation
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
+// loaded
+window.addEventListener('load',()=>document.body.classList.add('loaded'));
+
+// navbar
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>50);
+  document.getElementById('btt').classList.toggle('show',window.scrollY>window.innerHeight*.5);
+},{passive:true});
+
+// hamburger
+const hb=document.getElementById('hamburger'),dr=document.getElementById('drawer');
+function closeDrawer(){hb.classList.remove('open');dr.classList.remove('open');}
+hb.addEventListener('click',()=>{hb.classList.toggle('open');dr.classList.toggle('open');});
+document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!dr.contains(e.target))closeDrawer();});
+
+// reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>{
+        e.target.classList.add('in');
+        e.target.querySelectorAll('.emo-fill').forEach(f=>{f.style.width=f.dataset.w;});
+      },i*70);
+      obs.unobserve(e.target);
+    }
   });
-
-  // Navbar scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-    
-    // Back to top
-    const bt = document.getElementById('backTop');
-    if (window.scrollY > window.innerHeight) bt.classList.add('visible');
-    else bt.classList.remove('visible');
-  }, { passive: true });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-          // Trigger emotion bars
-          entry.target.querySelectorAll('.emotion-fill').forEach(fill => {
-            fill.style.width = fill.dataset.width;
-          });
-        }, i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
-
-  // Also trigger emotion bars on already visible elements
-  document.querySelectorAll('.emotion-fill').forEach(fill => {
-    fill.style.width = '0';
-  });
+},{threshold:.1,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
